@@ -1,0 +1,594 @@
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
+	<style>
+
+	
+		body{
+			margin: 0px;
+			background-color: white;
+		}
+
+		.surface_main{
+			width: 1000px; height: 100%;
+		}
+		.surface_second{
+			width: 100%; height: 100%;
+			position: absolute;
+			top: 100%;
+		}
+		
+		.node{
+			position: absolute;
+			width: 300px; height: 50px; 
+			margin-left: -150px; margin-top: -25px;
+			color: black;
+			text-align: center;
+			font-size: 55px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: pointer;			
+		}	
+		
+		.v_node{
+			position: absolute;
+			width: 0px; height: 50px; 
+			margin-left: -270px; margin-top: -25px;
+			left: -0%;
+			color: transparent;
+			text-align: right;
+			font-size: 40px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: pointer;
+		}	
+		
+		.inv_node{
+			position: absolute;
+			width: 0px; height: 50px; 
+			margin-left: 0px; margin-top: -25px;
+			right: -0%;
+			color: transparent;
+			text-align: center;
+			font-size: 45px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: pointer;
+			overflow: hidden;
+		}	
+			
+		.inv_sub_node{
+			position: absolute;
+			width: 0px; height: 50px; 
+			margin-left: 0px; margin-top: -25px;
+			right: 15%;
+			color: black;
+			text-align: left;
+			font-size: 40px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: pointer;
+			overflow: hidden;
+		}	
+		
+		.i_card{
+			position: absolute;
+			width: 0px; height: 80px; 
+			margin-left: 90px; margin-top: -40px;
+			background-color: transparent;
+			color: transparent;
+			border-left: 0px solid black;
+			text-align: right;
+			font-size: 25px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: default;
+			z-index: 1;
+		}		
+		
+		.results{
+			cursor: pointer;
+			position: absolute;
+			z-index:2;
+		}
+		
+		div#buffer{
+			color: black;
+		}
+	
+		div#image{
+			width: 400px; height: 400px;
+			position: absolute;
+			left: 10%; top: 10%;
+			box-shadow: 0px 0px 10px black;
+			background-image: none;
+			background-size: 400px 400px;
+			background-repeat: no-repeat;
+		}
+	
+		.info{
+			position: absolute;
+			width: 500px; height:30px; 
+			margin-left: 550px; margin-top: 60px;
+			color: white;
+			background-color: black;
+			text-align: left;
+			font-size: 25px;
+			font-family: 'Julius Sans One', sans-serif;
+			transition: 0.5s;
+			-webkit-user-select: none;
+			cursor: default;
+		}
+		
+		div#name{
+			text-align: center;
+			font-size: 45px;
+			height: 50px;
+		}
+		
+		.temp{
+			color: transparent;
+			-webkit-user-select: none;
+		}
+		
+		.back{
+			position: absolute;
+			width: 500px; height:30px; 
+			margin-left: 550px; margin-top: 400px;
+			color: black;
+			font-size: 55px;
+			font-family: 'Julius Sans One', sans-serif;
+			-webkit-user-select: none;
+			cursor: pointer;
+			transition: 0.5s;
+		}
+		
+		.back:hover{
+			text-shadow: 0px 0px 1px black;
+		}
+	
+	</style> 
+	
+	
+</head>
+<body>
+	<div class='surface_main'>
+			
+		<div class='node' id='all' style='left:50%;top:50%;' onclick='browse(id)'>ALL</div>
+		
+		<div class='node' id='ver' style='left:30%;top:-10%;height:80px;margin-top:-40px;' onclick='browse(id)'>Vertebrates</div>				
+		<div class='node' id='inv' style='left:70%;top:-10%;height:80px;margin-top:-40px;' onclick='browse(id)'>Invertebrates</div>
+		
+		<div class='inv_node' id='mol' style='top:45%;' onclick='browse(id)'>Molluscs</div>
+		<div class='inv_node' id='art' style='top:60%;' onclick='browse(id)'>Arthropods</div>
+			<div class='inv_sub_node' id='ara' style='top:75%;' onclick='browse(id)'>Arachnids</div>
+			<div class='inv_sub_node' id='ins' style='top:90%;' onclick='browse(id)'>Insects</div>
+		
+		<div class='v_node' id='bir' style='top:45%;' onclick='browse(id)'>Birds</div>
+		<div class='v_node' id='rep' style='top:60%;' onclick='browse(id)'>Reptiles</div>
+		<div class='v_node' id='amp' style='top:75%;' onclick='browse(id)'>Amphibians</div>
+		<div class='v_node' id='mam' style='top:90%;' onclick='browse(id)'>Mammals</div>
+		
+		<div class='i_card' id='i_bir' style='top:45%;left:25%;'></div>
+		<div class='i_card' id='i_rep' style='top:60%;left:25%;'></div>
+		<div class='i_card' id='i_amp' style='top:75%;left:25%;'></div>
+		<div class='i_card' id='i_mam' style='top:90%;left:25%;'></div>
+		
+		<div class='i_card' id='i_mol' style='top:45%;right:10%;'></div>
+		<div class='i_card' id='i_ara' style='top:75%;right:10%;'></div>
+		<div class='i_card' id='i_ins' style='top:90%;right:10%;'></div>
+
+	</div>
+	
+	<div class='surface_second'>
+		<div id='image'></div>	
+		<div class='info' id='name'>NAME</div>
+		<div class='info' id='offspring' style='margin-top:150px'>OFFSPRING</div>	
+		<div class='info' id='mature' style='margin-top:200px'>MATURE</div>	
+		<div class='info' id='lifespan' style='margin-top:250px'>LIFESPAN</div>
+		<div class='temp' id='buffer1'></div>
+		<div class='temp' id='buffer2'></div>
+		<div class='temp' id='buffer3'></div>
+		<div class='back' onclick='reset()'>BACK</div>
+	</div>
+	
+	
+	
+	<script src='{{ url_for("static", filename="js/jquery-1.11.0.min.js") }}' type='text/javascript'></script>
+	<script src='{{ url_for("static", filename="js/tutorial.js") }}' type='text/javascript'></script>
+
+	<textarea id='get_bird' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+
+		SELECT DISTINCT ?ind
+		WHERE {
+		 	{
+				?Class ?pr ?tt.
+				FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Birds>).
+				?ind rdf:type ?Class.
+			}
+			UNION{
+				?C ?P ?ind.
+				FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/external#SnowyOwl>).
+				FILTER (?P != rdf:type)
+			}
+		}
+	</textarea>
+	<textarea id='get_rep' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+
+		SELECT DISTINCT ?ind
+		WHERE {
+		 	{
+				?Class ?pr ?tt.
+				FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Reptiles>).
+				?ind rdf:type ?Class.
+			}
+			UNION{
+				?C ?P ?ind.
+				FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/external#Lizard>).
+				FILTER (?P != rdf:type)
+			}
+		}
+	</textarea>
+	<textarea id='get_amp' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+		SELECT DISTINCT ?ind
+		WHERE {
+			{
+		    ?Class ?pr ?tt.
+		    FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Amphibians>).
+		    ?ind rdf:type ?Class.
+		 	}
+		UNION{
+		    ?C ?P ?ind.
+		    FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/untitled-ontology-48#Salamander>).
+		    FILTER (?P != rdf:type)
+			}
+		}
+	</textarea>
+	<textarea id='get_mam' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+		
+		SELECT DISTINCT ?ind
+		WHERE {
+		 	{
+				?Class ?pr ?tt.
+				FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Mammals>).
+				?ind rdf:type ?Class.
+			}
+			UNION{
+				?C ?P ?ind.
+				FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/2015/9/untitled-ontology-44#ArcticFox>).
+				FILTER (?P != rdf:type)
+			}
+          
+          UNION{
+				?C ?P ?ind.
+				FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/external#PandaBear>).
+				FILTER (?P != rdf:type)
+			}
+          UNION{
+				?C ?P ?ind.
+				FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/external#Reindeer>).
+				FILTER (?P != rdf:type)
+			}
+		}
+	</textarea>	
+	
+	<textarea id='get_mol' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+		SELECT DISTINCT ?ind
+		WHERE {
+			{
+		    ?Class ?pr ?tt.
+		    FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Molluscs>).
+		    ?ind rdf:type ?Class.
+		 	}
+		UNION{
+		    ?C ?P ?ind.
+		    FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/untitled-ontology-48#Snail>).
+		    FILTER (?P != rdf:type)
+			}
+		}
+	</textarea>
+	
+	<textarea id='get_ara' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+		SELECT DISTINCT ?ind
+		WHERE {
+		  {
+		    ?ind ?pr ?tt.
+		    FILTER (?ind = <http://www.semanticweb.org/quinten/ontologies/untitled-ontology-48#Spider>).
+		    #?ind rdf:type ?Class.
+		  }
+		  UNION{
+		    ?C ?P ?ind.
+		    FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/untitled-ontology-48#Spider>).
+		    FILTER (?P != rdf:type)
+		  }
+		}
+	</textarea>
+	
+	<textarea id='get_ins' class='sparql' style='width: 0%;position:absolute;display:none' rows='10'>
+		PREFIX : &lt;http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#&gt;
+		PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+		PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX rdfs: &lt;http://www.w3.org/2000/01rdf-schema#&gt;
+		SELECT DISTINCT ?ind
+		WHERE {
+		  	{
+		    ?Class ?pr ?tt.
+		    FILTER (?Class = <http://www.semanticweb.org/deveneybrehler/ontologies/2015/9/untitled-ontology-17#Insects>).
+		    ?ind rdf:type ?Class.
+		  	}
+		UNION{
+		    ?C ?P ?ind.
+		    FILTER (?C = <http://www.semanticweb.org/quinten/ontologies/untitled-ontology-48#Bee>).
+		    FILTER (?P != rdf:type)
+		 	}
+		}
+	</textarea>
+</body>
+	<script>
+	
+	var ls1 = false;
+	var ls2_v = false;
+	var ls2_i = false;
+	var ls3 = false;
+	var ls4 = false;
+	
+	var ns_ver = document.getElementById('ver').style;
+	var ns_inv = document.getElementById('inv').style;
+	
+	var ns_bir = document.getElementById('bir').style;
+	var i_bir = document.getElementById('i_bir').style;
+	var ns_rep = document.getElementById('rep').style;
+	var i_rep = document.getElementById('i_rep').style;
+	var ns_amp = document.getElementById('amp').style;
+	var i_amp = document.getElementById('i_amp').style;
+	var ns_mam = document.getElementById('mam').style;
+	var i_mam = document.getElementById('i_mam').style;
+	
+	var ns_art = document.getElementById('art').style;
+	var ns_mol = document.getElementById('mol').style;
+	
+	var ns_ara = document.getElementById('ara').style;
+	var ns_ins = document.getElementById('ins').style;
+	
+	var i_mol = document.getElementById('i_mol').style;
+	var i_ara = document.getElementById('i_ara').style;
+	var i_ins = document.getElementById('i_ins').style;
+	
+	var all = document.getElementById('all').style;
+	var res = document.getElementsByClassName('results').style
+	
+	function change_bir(status){
+		if(status===true){ns_bir.left='10%';i_bir.width='180px';i_bir.marginLeft='0px';i_bir.borderLeft='1px solid black';i_bir.color='black';}
+		if(status===false){ns_bir.left='25%';i_bir.width='0px';i_bir.marginLeft='90px';i_bir.borderLeft='0px solid black';i_bir.color='transparent';}
+		if(status==='open'){ns_bir.width='180px'; ns_bir.marginLeft='-90px'; ns_bir.left='25%'; ns_bir.color='black';}
+		if(status==='close'){ns_bir.width='0px'; ns_bir.marginLeft='-270px'; ns_bir.color='transparent';}
+		return
+	}
+	
+	function change_rep(status){
+		if(status===true){ns_rep.left='10%';i_rep.width='180px';i_rep.marginLeft='0px';i_rep.borderLeft='1px solid black';i_rep.color='black';}
+		if(status===false){ns_rep.left='25%';i_rep.width='0px';i_rep.marginLeft='90px';i_rep.borderLeft='0px solid black';i_rep.color='transparent';}
+		if(status==='open'){ns_rep.width='180px'; ns_rep.marginLeft='-90px'; ns_rep.left='25%'; ns_rep.color='black';}
+		if(status==='close'){ns_rep.width='0px'; ns_rep.marginLeft='-270px'; ns_rep.color='transparent';}
+		return
+	}
+	
+	function change_amp(status){
+		if(status===true){ns_amp.left='10%';i_amp.width='180px';i_amp.marginLeft='0px';i_amp.borderLeft='1px solid black';i_amp.color='black';}
+		if(status===false){ns_amp.left='25%';i_amp.width='0px';i_amp.marginLeft='90px';i_amp.borderLeft='0px solid black';i_amp.color='transparent';}
+		if(status==='open'){ns_amp.width='180px'; ns_amp.marginLeft='-90px'; ns_amp.left='25%'; ns_amp.color='black';}
+		if(status==='close'){ns_amp.width='0px'; ns_amp.marginLeft='-270px'; ns_amp.color='transparent';}
+		return
+	}
+	
+	function change_mam(status){
+		if(status===true){ns_mam.left='10%';i_mam.width='180px';i_mam.marginLeft='0px';i_mam.borderLeft='1px solid black';i_mam.color='black';}
+		if(status===false){ns_mam.left='25%';i_mam.width='0px';i_mam.marginLeft='90px';i_mam.borderLeft='0px solid black';i_mam.color='transparent';}
+		if(status==='open'){ns_mam.width='180px'; ns_mam.marginLeft='-90px'; ns_mam.left='25%'; ns_mam.color='black';}
+		if(status==='close'){ns_mam.width='0px'; ns_mam.marginLeft='-270px'; ns_mam.color='transparent';}
+		return
+	}
+	
+	function change_mol(status){
+		if(status===true){ns_mol.right='25%';i_mol.width='180px';i_mol.marginLeft='180px';i_mol.borderLeft='1px solid black';i_mol.color='black';}
+		if(status===false){ns_mol.right='15%';i_mol.width='0px';i_mol.marginLeft='90px';i_mol.borderLeft='0px solid black';i_mol.color='transparent';}
+		if(status==='open'){ns_mol.width='300px'; ns_mol.marginLeft='-150px'; ns_mol.right='15%'; ns_mol.color='black';}
+		if(status==='close'){ns_mol.width='0px'; ns_mol.marginLeft='-90px'; ns_mol.right='0%'; ns_mol.color='transparent';}
+		return
+	}
+	
+	function change_ara(status){
+		if(status===true){ns_ara.right='25%';i_ara.width='180px';i_ara.marginLeft='0px';i_ara.borderLeft='1px solid black';i_ara.color='black';}
+		if(status===false){ns_ara.right='15%';i_ara.width='0px';i_ara.marginLeft='90px';i_ara.borderLeft='0px solid black';i_ara.color='transparent';}
+		if(status==='open'){ns_ara.width='250px'; ns_ara.marginLeft='-125px'; ns_ara.color='black';}
+		if(status==='close'){ns_ara.width='0px'; ns_ara.marginLeft='-0px'; ns_ara.right='15%'; ns_ara.color='transparent';}
+		return
+	}
+	
+	function change_ins(status){
+		if(status===true){ns_ins.right='25%';i_ins.width='180px';i_ins.marginLeft='0px';i_ins.borderLeft='1px solid black';i_ins.color='black';}
+		if(status===false){ns_ins.right='15%';i_ins.width='0px';i_ins.marginLeft='90px';i_ins.borderLeft='0px solid black';i_ins.color='transparent';}
+		if(status==='open'){ns_ins.width='200px'; ns_ins.marginLeft='-100px'; ns_ins.color='black';}
+		if(status==='close'){ns_ins.width='0px'; ns_ins.marginLeft='-0px'; ns_ara.right='15%'; ns_ins.color='transparent';}
+		return
+	}
+	
+	function browse(id){
+	
+		var nav = document.getElementById(id).style;
+		
+		if (id === 'all'){var layer = 1;}
+		else if(id === 'ver'){var layer = 21;}
+		else if(id === 'inv'){var layer = 22;}
+		else if(id === 'art'){var layer = 3;}
+		
+		if (layer == 1){			
+			if (ls1 === false){
+				ns_ver.top='50%'; ns_inv.top='50%';	all.top='20%';
+				ls1 = true;
+			}			
+			else if (ls1 === true){
+				ns_ver.top='-10%'; ns_inv.top='-10%'; all.top='50%';
+				ls1 = false; ls2_v = false;	ls2_i = false; ls3 = false;
+				layer = 21;
+			}
+		}
+		
+		if (layer === 21){
+			if (ls1 === true && ls2_v === false){
+				change_bir('open');change_rep('open');change_amp('open');change_mam('open');				
+				if (id === 'ver'){ns_ver.top='30%';ns_ver.left='30%'}							
+				else if (id === 'inv'){ns_inv.top='30%';ns_inv.left='70%'}	
+				ls2_v = true;				
+			}			
+			else if ((ls2_v === true && layer === 21)||(ls1 === false)){
+				change_bir('close');change_rep('close');change_amp('close');change_mam('close');							
+				if (id === 'ver'){ns_ver.top='50%';ns_ver.left='30%'}							
+				else if(id === 'inv'){ns_inv.top='50%';ns_inv.left='70%'}	
+				ls2_v = false;
+			}
+			if ((ls1 === false) && (ls2_v === false)){layer = 22;}
+		}
+		
+		if (layer === 22){
+			if (ls1 === true && ls2_i === false){
+				ns_art.width='300px'; ns_art.marginLeft='-150px'; ns_art.right='15%'; ns_art.color='black';
+				change_mol('open');
+				if (id === 'ver'){ns_ver.top='30%';ns_ver.left='30%'}							
+				else if (id === 'inv'){ns_inv.top='30%';ns_inv.left='70%'}	
+				ls2_i = true;
+			}			
+			else if ((ls2_i === true)||(ls1 === false)){
+				ns_art.width='0px'; ns_art.marginLeft='-90px'; ns_art.right='0%'; ns_art.color='transparent';
+				change_mol('close');
+				if (id === 'ver'){ns_ver.top='50%';ns_ver.left='30%'}							
+				else if(id === 'inv'){ns_inv.top='50%';ns_inv.left='70%'}	
+				ls2_i = false;
+				layer = 3;
+			}
+			//if (ls2_i === false){layer = 3;}
+		}
+		
+		if (layer === 3){ //click on art
+			if (ls1 === true && ls2_i === true && ls3 === false){ //on
+				console.log('l3 open')
+				change_ara('open'); change_ins('open');
+				ns_art.right='20%';
+				ls3 = true;
+			}			
+			else if ((ls3 === true && layer === 3)||(ls2_i === false)){ //off
+				console.log('l3 closed')
+				change_ara('close'); change_ins('close');
+				ns_art.right='15%';
+				ls3 = false;
+			}
+		}
+		
+		if (ls1 === true && ls2_v === true){ // closes vert icards WORKS	
+			if (id === 'bir'){change_bir(true); change_rep(false); change_amp(false); change_mam(false);}
+			else if (id === 'rep'){change_bir(false); change_rep(true); change_amp(false); change_mam(false);}
+			else if (id === 'amp'){change_bir(false); change_rep(false); change_amp(true); change_mam(false);}
+			else if (id === 'mam'){change_bir(false); change_rep(false); change_amp(false); change_mam(true);}	
+		}
+		else if (ls1 === false || ls2_v === false){ // removes info of vert icards WORKS
+			change_bir(false);change_rep(false);change_amp(false);change_mam(false);
+		}
+		
+		if (ls1 === true && ls2_i === true){ // closes invert icards WORKS
+			if (id === 'mol'){change_mol(true);change_ara(false);change_ins(false);}
+			else if (id === 'ara'){change_mol(false);change_ara(true);change_ins(false);}
+			else if (id === 'ins'){change_mol(false);change_ara(false);change_ins(true);}
+		}
+		else if (ls1 === false || ls2_i === false){ // removes info of inv icards WORKS
+			change_mol(false);change_ins(false);change_ara(false);
+		}
+
+		if (ls3 === false && layer === 3){
+			change_ara(false); change_ins(false);
+		}	
+	}
+	
+	function more(id,subject){
+		if (ls1 === true && (ls2_i === true||ls2_v === true)){
+			window.scrollTo(0,document.body.scrollHeight)
+			setTimeout(get_data(id,subject), 2000);
+		}		
+	}
+	
+	function reset(){
+		window.scroll(0,0)
+	}
+
+	function get_data(id,subject){
+		if (id === 'res1'){
+			var dp = document.getElementById('buffer1');
+		}
+		else if(id === 'res2'){
+			var dp = document.getElementById('buffer2');
+		}
+		else if(id === 'res3'){
+			var dp = document.getElementById('buffer3');
+		}
+		var raw = dp.innerHTML;
+		var proc = raw.split(' ');
+		
+		var off = proc[1];
+		var mat = proc[2];
+		var img = proc[3];
+		var life = proc[4];
+
+		var img_end = document.getElementById('image');
+		img = "url(\'"+img+"\')";
+		img_end.style.backgroundImage=img;
+		
+		var off_end = document.getElementById('offspring');
+		off_end.innerHTML = 'Reproduction: '+off+' per year (average)';
+		
+		var mat_end = document.getElementById('mature');
+		mat_end.innerHTML = 'Reaches Adulthood after:'+mat+' days';
+		
+		var life_end = document.getElementById('lifespan');
+		life_end.innerHTML = 'Average Lifespan: '+life+' years';
+		
+		var name_end = document.getElementById('name');
+		name_end.innerHTML = subject;
+	}
+	</script>
+</html>
